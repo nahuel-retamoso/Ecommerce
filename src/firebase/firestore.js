@@ -47,31 +47,47 @@ export async function removeFromCart(userId, productId) {
 export async function getCart(userId) {
   const userDocRef = doc(firestore, 'users', userId);
   const userDocSnap = await getDoc(userDocRef);
+  console.log('funcion getCart')
   return userDocSnap.data().cart || [];
 }
 
 // Funciones de órdenes
-export async function createOrder(userId, orderData) {
-  const ordersCollectionRef = collection(firestore, 'orders');
+export async function createOrder(userId, email, address, cartItems, totalPrice) {
+  const userDocRef = doc(firestore, 'users', userId);
+  const userOrdersCollectionRef = collection(userDocRef, 'orders');
+  const orderData = {
+    email,
+    address,
+    cartItems,
+    totalPrice,
+  };
   const newOrder = {
-    userId,
     ...orderData,
     createdAt: new Date(),
   };
-  await addDoc(ordersCollectionRef, newOrder);
+
+  const newOrderDocRef = doc(userOrdersCollectionRef);
+
+  await setDoc(newOrderDocRef, newOrder);
+
+  return newOrderDocRef.id;
 }
 
 // Funciones de historial de compras
 export async function getOrderHistory(userId) {
-  const ordersCollectionRef = collection(firestore, 'orders');
-  const q = query(ordersCollectionRef, where('userId', '==', userId));
-  const querySnapshot = await getDocs(q);
+  const userDocRef = doc(firestore, 'users', userId);
+  const ordersCollectionRef = collection(userDocRef, 'orders');
+  const querySnapshot = await getDocs(ordersCollectionRef);
   const orders = [];
+
   querySnapshot.forEach((doc) => {
     orders.push({ id: doc.id, ...doc.data() });
   });
+
+  console.log('funcion getOrderHistory');
   return orders;
 }
+
 
 // Funciones para el catalogo
 export async function getMostViewedProducts() {
@@ -79,6 +95,7 @@ export async function getMostViewedProducts() {
   const mostViewedQuery = query(productsRef, where('mostViewed', '==', true));
 
   try {
+    console.log('funcion MostViewProducts')
     const querySnapshot = await getDocs(mostViewedQuery);
     const mostViewedProducts = [];
     querySnapshot.forEach((doc) => {
@@ -93,7 +110,7 @@ export async function getMostViewedProducts() {
 
 export async function getCategories() {
   const categoriesRef = collection(firestore, 'categories');
-
+  console.log('funcion getCategories')
   try {
     const querySnapshot = await getDocs(categoriesRef);
     const categories = [];
@@ -108,6 +125,7 @@ export async function getCategories() {
 }
 
 export async function getProductById(productId) {
+  console.log('funcion getProductById')
   try {
     const productsRef = collection(firestore, 'products');
     const productQuery = query(productsRef, where('id', '==', productId));
@@ -127,6 +145,7 @@ export async function getProductById(productId) {
 }
 
 export async function getProductsByCategory(categoryId) {
+  console.log('funcion getProductByCategory')
   const productsRef = collection(firestore, 'products');
   const q = query(productsRef, where('category', '==', categoryId));
 
@@ -139,6 +158,7 @@ export async function getProductsByCategory(categoryId) {
 }
 
 export async function getProductsBySubcategory(subcategoryId) {
+  console.log('funcion getProductBySubcategory')
   const productsRef = collection(firestore, 'products');
   const q = query(productsRef, where('subcategory', '==', subcategoryId));
 

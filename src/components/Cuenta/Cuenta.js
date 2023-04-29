@@ -1,13 +1,16 @@
 import ItemCompras from "./ItemCompras"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import AuthContext from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
+import { getOrderHistory } from "../../firebase/firestore"
 
 const Cuenta = () => {
 
     const navigate = useNavigate();
 
     const { logout, currentUser } = useContext(AuthContext);
+
+    const [orderHistory, setOrderHistory] = useState();
 
     const handleLogOut = () => {
         try {
@@ -17,6 +20,20 @@ const Cuenta = () => {
             alert("Error al cerrar sesion: ", error.message);
         }
     }
+
+    useEffect(() => {
+        async function fetchOrderHistory() {
+          if (currentUser) {
+            try {
+              const orderHistory = await getOrderHistory(currentUser.uid);
+              setOrderHistory(orderHistory);
+            } catch (error) {
+              console.error('Error al obtener el historial de compras:', error);
+            }
+          }
+        }
+        fetchOrderHistory();
+      }, [currentUser]);
 
     const displayName = currentUser.displayName;
     const email = currentUser.email;
@@ -35,12 +52,10 @@ const Cuenta = () => {
                 </div>
                 <div className="flex flex-col items-center mt-5 w-full bg-white pb-20">
                     <p className="text-2xl mt-10 mb-10 font-bold">Historial de compras</p>
-                    <ItemCompras />
-                    <ItemCompras />
-                    <ItemCompras />
-                    <ItemCompras />
-                    <ItemCompras />
-                    <ItemCompras />
+                    {orderHistory?.map((order, index) => {
+                        return <ItemCompras key={index} order={order}/>
+                    })}
+                    
                 </div>
             </div>
         </div>

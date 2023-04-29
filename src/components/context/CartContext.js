@@ -16,7 +16,8 @@ export function CartProvider({ children }) {
       }
     }
     fetchCartItems();
-  }, [currentUser, removeItemFromCart]);
+    console.log('useEffect CartContext')
+  }, [currentUser]);
 
   async function addItemToCart(productId, quantity, size, price) {
     if (currentUser) {
@@ -27,8 +28,8 @@ export function CartProvider({ children }) {
 
   async function removeItemFromCart(productId) {
     if (currentUser) {
+      setCartItems(cartItems.filter((item) => item.productId !== productId));
       await removeFromCart(currentUser.uid, productId);
-      setCartItems(cartItems.filter((item) => item !== productId));
     }
   }
 

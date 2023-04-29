@@ -3,6 +3,7 @@ import AuthContext from '../context/AuthContext'
 import CartContext from '../context/CartContext'
 import { createOrder } from '../../firebase/firestore';
 import emailjs from '@emailjs/browser';
+import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
     const [firstName, setFirstName] = useState('');
@@ -11,7 +12,7 @@ const Checkout = () => {
     const [shippingAddress, setShippingAddress] = useState('');
 
     const { currentUser } = useContext(AuthContext);
-    const { cartItems } = useContext(CartContext);
+    const { cartItems, clearCart } = useContext(CartContext);
 
     useEffect(() => {
         if (currentUser) {
@@ -21,12 +22,35 @@ const Checkout = () => {
         }
     }, [currentUser]);
 
+    const sendEmail = (form) => {
+
+        emailjs.send(process.env.REACT_APP_serviceId, process.env.REACT_APP_templateId, form, process.env.REACT_APP_publicKey)
+            .then((result) => {
+                console.log(result.text);
+            }, (error) => {
+                console.log(error);
+            });
+    };
+
+
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Aquí es donde validarías la información de pago y manejarías la transacción.
+        const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
         alert('Pago completado con éxito');
-        //ir al home
+
+        createOrder(currentUser.uid, email, shippingAddress, cartItems, totalPrice).then(response => {
+            const form = {
+                name: `${firstName} ${lastName}`,
+                order:response,
+                adress: shippingAddress,
+                email: email,
+            }
+            sendEmail(form);
+        })
+        clearCart();
+        navigate('/');
     };
 
     return (

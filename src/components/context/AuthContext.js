@@ -17,7 +17,8 @@ export function AuthProvider({ children }) {
       setCurrentUser(user);
       setLoading(false);
     });
-
+    
+    console.log('useEffect AuthContext')
     return () => {
       unsubscribe();
     };
