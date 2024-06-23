@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from 'firebase/auth';
-import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import {app} from '../../firebase/firebaseConfig'; // Asegúrate de importar 'firebaseApp' desde tu archivo de configuración de Firebase
 
 const AuthContext = createContext();
@@ -10,7 +9,6 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   const auth = getAuth(app);
-  const firestore = getFirestore();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {

@@ -1,15 +1,37 @@
+import React, { useEffect, useState } from 'react'
+import { getHome } from '../../sanity'
+
 const Hero = () => {
+    const [content, setContent] = useState(null)
+
+    useEffect(() => {
+        async function fetchData() {
+            const content = await getHome()
+            setContent(content.length > 0 ? content[0] : null) // Ajusta esto según la estructura de tus datos
+            console.log(content)
+        }
+        fetchData()
+    }, [])
+
+    if (!content) {
+        return <div>Loading...</div>
+    }
+
     return (
         <div className="h-[90vh] relative w-full overflow-hidden">
-            <div className="h-[6vh] w-full bg-yellow-600 font-bold flex items-center justify-center text-md">10% de descuento en todos nuestros productos</div>
-            <div className="flex flex-col absolute bg-white/20 backdrop-blur-xl h-1/2 w-1/4 ml-32 mt-32 items-center justify-center p-20 rounded-md text-white/70">
-                <h2 className="text-5xl mb-10">Camperas</h2>
-                <p>Nuestras buenas camperas son comodas y sirven para el uso diario de la vida en la ciudad, ademas cuentan con un gran estilo</p>
+            <div className="h-[6vh] w-full bg-yellow-600 font-light flex items-center justify-center text-md text-slate-50">
+                {content.slider}
             </div>
-            <button className="absolute bg-yellow-600 w-80 h-20 right-80 bottom-44 text-3xl text-white rounded-md">Comprar Ahora</button>
-            <img src="heroImage.jpg" alt='hero-image' />
+            <div className="flex flex-col absolute bg-white/20 backdrop-blur-xl w-1/4 ml-32 mt-40 justify-center p-12 rounded-md text-slate-300">
+                <h2 className="text-3xl font-bold mb-2">{content.title}</h2>
+                <p className='text-md text-slate-300 font-light'>{content.description}</p>
+                <button className=" bg-yellow-600/50 font-normal p-4 px-5 mt-7 text-md w-fit text-slate-100 rounded-2xl">
+                Ver ahora
+            </button>
+            </div>
+            <img src={content.image} alt='hero-image' />
         </div>
     )
 }
 
-export default Hero;
+export default Hero

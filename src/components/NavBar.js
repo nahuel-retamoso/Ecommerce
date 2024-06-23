@@ -23,11 +23,11 @@ const NavBar = () => {
     }
 
     return (
-        <nav className="z-10 flex h-[10vh] w-full items-center font-bold" >
+        <nav className="z-10 flex h-[10vh] w-full items-center bg-slate-100" >
             <div className="w-1/3">
-                <h1 className="ml-14 text-3xl ">Ecommerce</h1>
+                <h1 className="ml-14 font-medium text-3xl ">Ecommerce</h1>
             </div>
-            <div className="flex w-1/3 justify-around ">
+            <div className="flex font-light text-lg w-1/3 justify-around ">
                 <Link to='/'>Inicio</Link>
                 <Link to='/catalogo'>Catalogo</Link>
                 <Link to='/sucursales'>Sucursales</Link>
