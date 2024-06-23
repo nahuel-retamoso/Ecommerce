@@ -1,9 +1,9 @@
 import { createClient } from '@sanity/client'
 
 export const client = createClient({
-    projectId: process.env.REACT_APP_projectId,
+    projectId: process.env.REACT_APP_SanityProjectId,
     dataset: process.env.REACT_APP_dataset,
-    useCdn: true, // set to `false` to bypass the edge cache
+    useCdn: false, // set to `false` to bypass the edge cache
     apiVersion: '2024-06-20', // use current date (YYYY-MM-DD) to target the latest API version
 })
 
@@ -133,7 +133,7 @@ export async function getSubcategoryProducts(subcategory) {
 
 export async function getStock(referencia) {
     try {
-        const stock = await client.fetch(`*_key == "${referencia}"`)
+        const stock = await client.fetch(`*[_key == "${referencia}"]`)
         return(stock)
     } catch (error) {
         console.log('Error fetching stock:', error)

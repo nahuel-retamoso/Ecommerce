@@ -34,11 +34,11 @@ const NavBar = () => {
             </div>
             <div className="w-1/3 flex items-center justify-end">
                 <Link to='/cuenta'>
-                    <AiOutlineUser className="h-8 w-8 mr-10"/>
+                    <AiOutlineUser className="text-gray-600 h-6 w-6 mr-10"/>
                 </Link>
-                <Link to='/carrito' className="flex">
-                    <p className="mr-2 text-2xl">{itemsQuantity}</p>        
-                    <AiOutlineShoppingCart className="h-8 w-8 mr-20"/>
+                <Link to='/carrito' className="flex items-center">
+                    <p className="mr-2 text-xl text-gray-600 font-light">{itemsQuantity}</p>        
+                    <AiOutlineShoppingCart className="text-gray-600 h-7 w-7 mr-20"/>
                 </Link>
             </div>
         </nav>
