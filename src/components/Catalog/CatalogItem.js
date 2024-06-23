@@ -2,20 +2,22 @@ import { Link } from "react-router-dom"
 
 const CatalogItem = ({product}) => {
 
-    const firstImage = product.images && product.images.length > 0 ? product.images[0] : '';
 
     return (
-        <Link to={`/detail/${product.id}`}>
-            <div className="flex flex-col justify-around items-center bg-white p-5 h-[25rem] shadow hover:scale-105 hover:shadow-md">
-                <div className=" overflow-hidden h-64">
-                    <img src={firstImage}/>
-                </div>
-                <div className="w-full ml-2">
-                    <h3 className="pt-5 mb-2">{product.name}</h3>
-                    <h3 className="text-2xl font-bold">${product.price}</h3>
-                </div>
-            </div>
-        </Link>
+        <Link to={`/detail/${product._id}`} className="card w-full bg-base-100 hover:shadow-2xl shadow-xl">
+        <figure><img src={product.images[0]} alt="Shoes" /></figure>
+        <div className="card-body">
+          <h2 className="card-title">
+            {product.title}
+            <div className="badge badge-secondary">NEW</div>
+          </h2>
+          <p>{product.description}</p>
+          <div className="card-actions items-center justify-end">
+          <div className="badge badge-outline">10% descuento</div>
+            <div className="text-success text-lg">${product.price}</div> 
+          </div>
+        </div>
+      </Link>
     )
 }
 

@@ -43,7 +43,7 @@ export async function getFeatured() {
 
 export async function getCategories() {
     try {
-        const categories = await client.fetch('*[_type == "categories"]')
+        const categories = await client.fetch('*[_type == "category"]{_id, category, "subcategories": *[_type=="subcategory" && references(^._id)]{ title, _id }}')
         return categories
     } catch (error) {
         console.error('Error fetching categories:', error)
@@ -53,7 +53,7 @@ export async function getCategories() {
 
 export async function getSpecificProduct(id) {
     try {
-        const products = await client.fetch(`*[_type == "product" && _id == ${id}] {
+        const products = await client.fetch(`*[_type == "product" && _id == "${id}"] {
             title,
             description,
             price,
@@ -77,9 +77,9 @@ export async function getSpecificProduct(id) {
     }
 }
 
-export async function getFilterProducts(subcategory) {
+export async function getCategoryProducts(category) {
     try {
-        const filterProducts = await client.fetch(`*[_type == "product" && subcategory._ref == ${subcategory}] {
+        const filterProducts = await client.fetch(`*[_type == "product" && category._ref == "${category}"] {
             _id,
             title,
             description,
@@ -100,6 +100,43 @@ export async function getFilterProducts(subcategory) {
         return filterProducts
     } catch (error) {
         console.error('Error fetching filtered products:', error)
+        return []
+    }
+}
+
+export async function getSubcategoryProducts(subcategory) {
+    try {
+        const filterProducts = await client.fetch(`*[_type == "product" && subcategory._ref == "${subcategory}"] {
+            _id,
+            title,
+            description,
+            price,
+            sizes,
+            sku,
+            slug,
+            "images": images[].asset->url,
+            category->{
+                _id,
+                title
+            },
+            subcategory->{
+                _id,
+                title
+            }
+        }`)
+        return filterProducts
+    } catch (error) {
+        console.error('Error fetching filtered products:', error)
+        return []
+    }
+}
+
+export async function getStock(referencia) {
+    try {
+        const stock = await client.fetch(`*_key == "${referencia}"`)
+        return(stock)
+    } catch (error) {
+        console.log('Error fetching stock:', error)
         return []
     }
 }

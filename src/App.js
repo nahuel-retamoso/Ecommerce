@@ -24,7 +24,7 @@ function App() {
           <NavBar/>
           <Routes>
             <Route path='/login' element={<LoginContainer/>} />
-            <Route path="/" element={<div><Hero/><NewSection/></div>}/>
+            <Route path="/" element={<div className="min-h-screen"><Hero/><NewSection/></div>}/>
             <Route path="/catalogo" element={<CatalogContainer/>}/>
             <Route path="/detail/:id" element={<Detail/>}/>
             <Route path='/sucursales' element={<Sucursales/>}/>

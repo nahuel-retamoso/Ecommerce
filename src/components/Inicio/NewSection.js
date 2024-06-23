@@ -19,9 +19,9 @@ const NewSection = () => {
     }
 
     return (
-        <div className="w-full h-[70vh] flex flex-col items-center bg-black/10">
+        <div className="w-full h-[70vh] flex flex-col items-center">
             <div className="flex items-center justify-center w-full h-[8vh] bg-yellow-600">
-                <h2 className="text-xl font-extralight text-slate-50">Productos destacados</h2>
+                <h2 className="text-xl font-extralight text-white">Productos destacados</h2>
             </div>
             <div className="flex w-5/6 items-center justify-around">
                 {featured.featured.map((reference) => (

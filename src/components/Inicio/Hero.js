@@ -14,7 +14,7 @@ const Hero = () => {
     }, [])
 
     if (!content) {
-        return <div>Loading...</div>
+        return <div className="skeleton w-full h-screen"></div>
     }
 
     return (
@@ -22,7 +22,7 @@ const Hero = () => {
             <div className="h-[6vh] w-full bg-yellow-600 font-light flex items-center justify-center text-md text-slate-50">
                 {content.slider}
             </div>
-            <div className="flex flex-col absolute bg-white/20 backdrop-blur-xl w-1/4 ml-32 mt-40 justify-center p-12 rounded-md text-slate-300">
+            <div className="flex flex-col absolute glass w-1/4 ml-32 mt-40 justify-center p-12 rounded-2xl text-slate-300">
                 <h2 className="text-3xl font-bold mb-2">{content.title}</h2>
                 <p className='text-md text-slate-300 font-light'>{content.description}</p>
                 <button className=" bg-yellow-600/50 font-normal p-4 px-5 mt-7 text-md w-fit text-slate-100 rounded-2xl">
