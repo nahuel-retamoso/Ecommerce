@@ -11,7 +11,7 @@ const CatalogItem = ({product}) => {
             {product.title}
             <div className="badge badge-secondary">NEW</div>
           </h2>
-          <p>{product.description}</p>
+          {/* <p>{product.description}</p> */}
           <div className="card-actions items-center justify-end">
           <div className="badge badge-outline">10% descuento</div>
             <div className="text-success text-lg">${product.price}</div> 

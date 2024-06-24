@@ -4,7 +4,7 @@ import SizeSelector from "./SizeSelector";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import CartContext from "../context/CartContext";
-import { getSpecificProduct } from "../../sanity";
+import { getSpecificProduct, getStockBySize } from "../../sanity";
 
 const Detail = () => {
 
@@ -16,6 +16,7 @@ const Detail = () => {
     const [quantity, setQuantity] = useState(1);
     const [size, setSize] = useState();
     const [added, setAdded] = useState(false)
+    const [stock, setStock] = useState(0)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,7 +28,18 @@ const Detail = () => {
 
     useEffect(() => {
         console.log(product)
-    }, [product])
+        console.log('Stock is:', stock)
+    }, [product, stock])
+
+    useEffect(() => {
+        setQuantity(1)
+        const fetchStock = async () => {
+            const stock = await getStockBySize(product[0]._id, size._key)
+            setStock(stock.sizes.stock)
+        };
+        fetchStock()
+        console.log('Size selected:' , size )
+    }, [size])
 
     const AddItem = () => {
         if (size) {
@@ -42,15 +54,15 @@ const Detail = () => {
         <div className="flex items-center justify-around w-full h-[90vh] bg-base-200 p-10">
             <div className="overflow-hidden z-20 flex justify-around items-center h-full w-full rounded-2xl shadow-xl bg-base-100">
                 <ImageSelector images={product[0]?.images} />
-                <div className="flex flex-col justify-between h-full w-max py-20 px-20">
+                <div className="flex flex-col justify-between h-full w-2/5 py-20 px-20">
                     <div className="w-full">
                         <h2 className="text-4xl font-light text-gray-800">{product[0]?.title}</h2>
                         <p className="mt-5 font-extralight text-gray-700">{product[0]?.description}</p>
                     </div>
                     <div className="flex flex-col">
-                        <div>
+                        <div className="flex items-center mb-5 justify-between">
                             <SizeSelector set={setSize} sizes={product[0]?.sizes} selected={size}/>
-                            {/* <QuantitySelector quantity={quantity} set={setQuantity} stock={product[0].sizes}/> */}
+                            <QuantitySelector quantity={quantity} set={setQuantity} stock={stock}/>
                         </div>
                         <div className="px-1 flex items-center justify-between">
                             <p className="h-full text-2xl mt-5 font-mono text-success">${product[0]?.price}</p>

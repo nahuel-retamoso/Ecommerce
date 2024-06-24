@@ -1,9 +1,9 @@
 const SizeSelector = ({sizes, set, selected}) => {
 
     return (
-        <div className="flex space-x-5 justify-around items-center w-fit h-10 font-light text-sm rounded-md mt-2 py-10">
+        <div className="flex space-x-5 justify-around items-center w-fit font-light text-sm rounded-md">
             {sizes?.map((size, index) => {
-                return <button className={`hover:bg-black/20 rounded-full h-8 w-8 flex items-center justify-around bg-base-200 ${selected == size._key ? 'bg-yellow-600' : ''}`} onClick={() => set(size._size)}>{size.size}</button>
+                return <button className={`rounded-full h-9 w-9 flex items-center justify-around bg-base-200 ${selected == size ? 'bg-accent shadow-md' : 'hover:bg-black/20'}`} onClick={() => set(size)}>{size.size}</button>
             })}
         </div>
     )

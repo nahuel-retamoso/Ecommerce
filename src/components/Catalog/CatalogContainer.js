@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CatalogItem from './CatalogItem';
 import FilterButton from './FilterButton';
-import { getCategories, getCategoryProducts, getSubcategoryProducts } from '../../sanity';
+import { getCategories, getCategoryProducts, getProducts, getSubcategoryProducts } from '../../sanity';
 
 const CatalogContainer = () => {
   const [categories, setCategories] = useState([]);
@@ -12,22 +12,37 @@ const CatalogContainer = () => {
 
   const [selectedCategory, setSelectedCategory] = useState(null);
 
+  const [clickAll, setClickAll] = useState(false)
+
   useEffect(() => {
     async function fetchData() {
       const content = await getCategories()
       setCategories(content.length > 0 ? content : null)
-      // console.log(content)
   }
   fetchData()
   }, []);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const products = await getMostViewedProducts();
-  //     setProducts(products);
-  //   };
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const products = await getProducts();
+      setProducts(products);
+      console.log(products)
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (clickAll === true) {
+      const fetchData = async () => {
+        const products = await getProducts();
+        setProducts(products);
+        console.log(products)
+        setClickAll(false)
+      }
+      fetchData();
+    }
+
+  }, [clickAll]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -57,8 +72,11 @@ const CatalogContainer = () => {
     }
 
   return (
-    <div className="flex w-full min-h-screen">
-      <div className="w-1/5 h-full sticky top-10 my-20 ml-40 shadow-sm bg-base-200 shadow-xl rounded-2xl overflow-hidden">
+    <div className="flex w-full min-h-screen px-20">
+      <div className="w-1/5 h-full sticky top-10 my-20 shadow-sm bg-base-200 shadow-xl rounded-2xl overflow-hidden">
+          <div className='flex justify-around items-center t h-20 hover:bg-accent' onClick={() => setClickAll(true)}>
+            <p>Todo</p>
+          </div>
         {categories?.map((category) => (
           <FilterButton
             key={category._id}
@@ -70,9 +88,9 @@ const CatalogContainer = () => {
           />
         ))}
       </div>
-      <div className="w-4/5 mr-40 mt-4">
+      <div className="w-full mt-4">
         <h2 className="ml-6 mt-2 text-2xl">Lo mas visto</h2>
-        <div className="grid grid-cols-3 gap-6 p-6 mb-20">
+        <div className="grid grid-cols-3 gap-6 p-6 mb-20 w-full">
         {products?.map((product) => (
             <CatalogItem key={product._id} product={product} />
           ))}

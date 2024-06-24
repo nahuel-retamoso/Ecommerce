@@ -17,6 +17,32 @@ export async function getHome() {
     }
 }
 
+export async function getProducts() {
+    try {
+        const query = `*[_type == "product"]{_id,
+            title,
+            description,
+            price,
+            sizes,
+            sku,
+            slug,
+            "images": images[].asset->url,
+            category->{
+                _id,
+                title
+            },
+            subcategory->{
+                _id,
+                title
+    }}`;
+        const all = await client.fetch(query);
+        return all;
+    } catch (error) {
+        console.log('Error fetching all items:', error);
+        return [];
+    }
+}
+
 export async function getFeatured() {
     try {
         const query = `
@@ -54,6 +80,7 @@ export async function getCategories() {
 export async function getSpecificProduct(id) {
     try {
         const products = await client.fetch(`*[_type == "product" && _id == "${id}"] {
+            _id,
             title,
             description,
             price,
@@ -131,9 +158,13 @@ export async function getSubcategoryProducts(subcategory) {
     }
 }
 
-export async function getStock(referencia) {
+export async function getStockBySize(productID ,sizeKey) {
     try {
-        const stock = await client.fetch(`*[_key == "${referencia}"]`)
+        const stock = await client.fetch(`*[_type == "product" && _id == '${productID}'] {
+            sizes[ _key == '${sizeKey}' ][0] {
+                stock
+            }
+        }[0]`)
         return(stock)
     } catch (error) {
         console.log('Error fetching stock:', error)
