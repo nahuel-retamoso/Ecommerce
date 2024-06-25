@@ -39,7 +39,7 @@ const Cuenta = () => {
     const email = currentUser.email;
 
     return (
-        <div className="flex flex-col items-center pt-10 pb-20 w-full bg-slate-100">
+        <div className="flex flex-col items-center pt-10 pb-20 w-full h-[90vh] bg-slate-100">
             <div className="w-2/3">
                 <div className="flex w-full items-center justify-between items-center">
                     <div className="flex flex-col h-40 justify-center">
@@ -48,13 +48,19 @@ const Cuenta = () => {
                     </div>
                     <button onClick={() => handleLogOut()} className="btn btn-accent">Logout</button>
                 </div>
-                <div className="flex flex-col items-center">
-                    <p className="text-xl font-light">Historial de compras</p>
-                    {/* {orderHistory?.map((order, index) => {
-                        return <ItemCompras key={index} order={order}/>
-                    })} */}
-
-                </div>
+                        <p className="text-xl font-extralight">Historial de compras</p>
+                <table className="table">
+                    <thead>
+                        <td>Detalles generales</td>
+                        <td>Fecha de la orden y datos de envio</td>
+                        <td>Detalles especificos</td>
+                    </thead>
+                    <tbody>
+                        {orderHistory?.map((order, index) => {
+                            return <ItemCompras key={index} order={order} />
+                        })}
+                    </tbody>
+                </table>
             </div>
         </div>
     )
