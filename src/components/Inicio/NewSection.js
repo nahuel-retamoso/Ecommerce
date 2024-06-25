@@ -15,7 +15,7 @@ const NewSection = () => {
     }, []);
 
     if (!featured) {
-        return <div>Loading...</div>;
+        return null
     }
 
     return (
@@ -31,7 +31,8 @@ const NewSection = () => {
                             title={reference.title} 
                             description={reference.description} 
                             image={reference.images[0]} 
-                            price={reference.price} 
+                            price={reference.price}
+                            id={reference._id} 
                         />
                     ))}
                 </div>

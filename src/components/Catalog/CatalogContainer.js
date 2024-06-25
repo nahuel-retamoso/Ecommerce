@@ -73,11 +73,11 @@ const CatalogContainer = () => {
 
   return (
     <div className="flex w-full min-h-screen px-20">
-      <div className="w-1/5 h-full sticky top-10 my-20 shadow-sm bg-base-200 shadow-xl rounded-2xl overflow-hidden">
+      <div className="w-1/5 h-full sticky top-10 my-20 shadow-sm bg-base-200 shadow-xl rounded-sm overflow-hidden">
           <div className='flex justify-around items-center t h-20 hover:bg-accent' onClick={() => setClickAll(true)}>
             <p>Todo</p>
           </div>
-        {categories?.map((category) => (
+        {categories?.length === 0 ? <div className='flex justify-around items-center h-20'><span className="loading loading-dots loading-lg"></span></div> : <div>{categories?.map((category) => (
           <FilterButton
             key={category._id}
             name={category.category}
@@ -86,7 +86,7 @@ const CatalogContainer = () => {
             selectCategory={SelectCategory}
             selectSubcategory={SelectSubcategory}
           />
-        ))}
+        ))}</div>}
       </div>
       <div className="w-full mt-4">
         <h2 className="ml-6 mt-2 text-2xl">Lo mas visto</h2>

@@ -4,7 +4,7 @@ const CatalogItem = ({product}) => {
 
 
     return (
-        <Link to={`/detail/${product._id}`} className="card w-full bg-base-100 hover:shadow-2xl shadow-xl">
+        <Link to={`/detail/${product._id}`} className="card w-full bg-base-100 rounded-sm hover:shadow-2xl shadow-xl">
         <figure><img src={product.images[0]} alt="Shoes" /></figure>
         <div className="card-body">
           <h2 className="card-title">
