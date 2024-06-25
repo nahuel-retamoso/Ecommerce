@@ -72,12 +72,12 @@ const CatalogContainer = () => {
     }
 
   return (
-    <div className="flex w-full min-h-screen px-20">
-      <div className="w-1/5 h-full sticky top-10 my-20 shadow-sm bg-base-200 shadow-xl rounded-sm overflow-hidden">
+    <div className="flex w-full min-h-screen px-20 bg-slate-100">
+      <div className="w-1/5 h-full sticky top-10 my-20 shadow-sm bg-base-100 shadow-md rounded-sm overflow-hidden">
           <div className='flex justify-around items-center t h-20 hover:bg-accent' onClick={() => setClickAll(true)}>
-            <p>Todo</p>
+            <p className='font-light'>Todo</p>
           </div>
-        {categories?.length === 0 ? <div className='flex justify-around items-center h-20'><span className="loading loading-dots loading-lg"></span></div> : <div>{categories?.map((category) => (
+        {categories?.length === 0 ? <div className='flex justify-around items-center h-20'><span className="text-gray-500 loading loading-dots loading-lg"></span></div> : <div>{categories?.map((category) => (
           <FilterButton
             key={category._id}
             name={category.category}

@@ -44,7 +44,7 @@ const Detail = () => {
 
     const AddItem = () => {
         if (size) {
-            addItemToCart(product.id, quantity, size, product.price);
+            addItemToCart(product._id, quantity, size, product.price);
             setAdded(true);
         } else {
             alert('Selecciona un tamaño')
@@ -52,7 +52,7 @@ const Detail = () => {
     }
 
     return (
-        <div className="flex items-center justify-around w-full h-[90vh] bg-base-200 p-10">
+        <div className="flex items-center justify-around w-full h-[90vh] bg-slate-100 p-10">
             <div className="overflow-hidden z-20 flex justify-around items-center h-full w-full rounded-sm shadow-xl bg-base-100">
                 <ImageSelector images={product[0]?.images} />
                 {Object.keys(product).length === 0 ? <div className="p-20 h-full w-2/5 rounded-l-none">

@@ -11,7 +11,7 @@ const FilterButton = ({name, options, selectCategory, categoryId, selectSubcateg
 
     return (
         <div>
-            <div className="flex justify-around items-center h-20 hover:bg-accent" onClick={() => handleClick()}><p>{options.length > 0 ? `+ ${name}` : name}</p></div>
+            <div className="flex justify-around items-center h-20 hover:bg-accent font-light" onClick={() => handleClick()}><p>{options.length > 0 ? `+ ${name}` : name}</p></div>
             {isOpen == true ? options.map((item) => <div className="flex justify-around items-center h-20 hover:bg-accent bg-base-100" onClick={() => selectSubcategory(item._id)}>{item.title}</div>) : null}
         </div>
     )

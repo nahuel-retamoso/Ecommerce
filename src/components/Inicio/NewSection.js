@@ -19,7 +19,7 @@ const NewSection = () => {
     }
 
     return (
-        <div className="w-full h-fit flex flex-col overflow-hidden items-center">
+        <div className="w-full h-fit flex flex-col overflow-hidden items-center bg-slate-200">
             <div className="flex items-center justify-center w-full h-[8vh] bg-yellow-600">
                 <h2 className="text-xl font-extralight text-white">Productos destacados</h2>
             </div>
