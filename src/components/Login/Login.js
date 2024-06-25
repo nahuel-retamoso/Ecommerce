@@ -54,6 +54,11 @@ const Login = () => {
                 </svg>
                 <input onChange={(e) => setPassword(e.target.value)} type="password" className="grow" value={password} />
             </label>
+            <div className="text-sm">
+                <p className="font-light">Credenciales de prueba <span className="font-extralight">(tambien podes crear tu cuenta)</span></p>
+                <p className="font-thin">Email: <span className="font-light">username@account.com</span></p>
+                <p className="font-thin">Password: <span className="font-light">password</span></p>
+            </div>
             <button className="bg-black/50 rounded-lg w-full h-12 justify-center items-center flex bg-yellow-600 font-bold text-white/90" onClick={() => { handleLogin() }}>Ingresar</button>
             {error && <p className="text-red-600 mt-5 ml-1">{error}</p>}
         </div>
