@@ -48,7 +48,7 @@ const Carrito = () => {
                     </div>
                     <div className='flex space-x-3'>
                         <button className="btn btn-error w-32" onClick={() => clearCart()}>Vaciar Carrito</button>
-                        <Link to='/checkout' className="btn btn-primary w-32" >Comprar</Link>
+                        <Link to='/checkout' className="btn btn-primary w-32" >Continuar</Link>
                     </div>
                 </div>
             </div>

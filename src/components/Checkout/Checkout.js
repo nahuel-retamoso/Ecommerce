@@ -43,7 +43,7 @@ const Checkout = () => {
         createOrder(currentUser.uid, email, shippingAddress, cartItems, totalPrice).then(response => {
             const form = {
                 name: `${firstName} ${lastName}`,
-                order:response,
+                order: response,
                 adress: shippingAddress,
                 email: email,
             }
@@ -54,20 +54,26 @@ const Checkout = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center bg-slate-100">
+        <div className="flex flex-col items-center justify-center bg-slate-100 h-[90vh]">
             <form onSubmit={handleSubmit}>
-                <div className='flex flex-col font-light'>
-                    <h3 className='text-xl font-extralight mb-2'>Información Personal</h3>
-                    <input className='input input-bordered mt-2 mb-4' type="text" placeholder='Nombre' value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-                    <input className='input input-bordered mt-2 mb-4' type="text" placeholder='Apellido' value={lastName} onChange={(e) => setLastName(e.target.value)} />
-                    <input className='input input-bordered mt-2 mb-4' type="text" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
-                    <h3 className='text-xl font-extralight mb-2'>Información de la tarjeta</h3>
-                    <input className='input input-bordered mt-2 mb-4 text-gray-600' type="text" value='4242 4242 4242 4242' />
-                    <input className=' text-gray-600 input input-bordered mt-2 mb-4' type="text" value='234' />
-                    <input className='text-gray-600 input input-bordered mt-2 mb-4' type="text" value='02/25' />
-                    <h3 className='text-xl font-extralight mb-2'>Datos de envío</h3>
-                    <input className='input input-bordered mt-2 mb-4' type="text" placeholder='Direccion' value={shippingAddress} onChange={(e) => setShippingAddress(e.target.value)} />
-                    <button className='btn btn-accent' type="submit">Pagar</button>
+                <div className='flex space-x-5'>
+                    <div className='flex flex-col font-light'>
+                        <h3 className='text-xl font-extralight mb-2'>Información Personal</h3>
+                        <input className='input input-bordered mt-2 mb-4' type="text" placeholder='Nombre' value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                        <input className='input input-bordered mt-2 mb-4' type="text" placeholder='Apellido' value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                        <input className='input input-bordered mt-2 mb-4' type="text" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <h3 className='text-xl font-extralight mb-2'>Datos de envío</h3>
+                        <input className='input input-bordered mt-2' type="text" placeholder='Direccion' value={shippingAddress} onChange={(e) => setShippingAddress(e.target.value)} />
+                    </div>
+                    <div className='flex flex-col justify-between font-light'>
+                        <div className='flex flex-col'>
+                            <h3 className='text-xl font-extralight mb-2'>Información de la tarjeta</h3>
+                            <input className='input input-bordered mt-2 mb-4 text-gray-600' type="text" value='4242 4242 4242 4242' />
+                            <input className=' text-gray-600 input input-bordered mt-2 mb-4' type="text" value='234' />
+                            <input className='text-gray-600 input input-bordered mt-2 mb-4' type="text" value='02/25' />
+                        </div>
+                        <button className='btn btn-accent' type="submit">Comprar</button>
+                    </div>
                 </div>
             </form>
         </div>
