@@ -9,18 +9,23 @@ export async function addToCart(userId, productId, quantity, size, price) {
 
   const userDocSnap = await getDoc(userDocRef);
 
-  if (!userDocSnap.exists() || !userDocSnap.data().cart) {
-    await setDoc(userDocRef, { cart: [] }, { merge: true });
+  try {
+    if (!userDocSnap.exists() || !userDocSnap.data().cart) {
+      await setDoc(userDocRef, { cart: [] }, { merge: true });
+    }
+    const cartItem = {
+      productId,
+      quantity,
+      size,
+      price,
+    };
+    console.log(cartItem)
+    await updateDoc(userDocRef, {
+      cart: arrayUnion(cartItem),
+    });
+  } catch (error) {
+    console.log('Adding to cart error: ', error)
   }
-  const cartItem = {
-    productId,
-    quantity,
-    size,
-    price,
-  };
-  await updateDoc(userDocRef, {
-    cart: arrayUnion(cartItem),
-  });
 }
 
 export async function clearFirestoreCart(userId) {
@@ -125,7 +130,7 @@ export async function getCategories() {
 }
 
 export async function getProductById(productId) {
-  console.log('funcion getProductById')
+  console.log(productId)
   try {
     const productsRef = collection(firestore, 'products');
     const productQuery = query(productsRef, where('id', '==', productId));

@@ -23,39 +23,37 @@ const Cuenta = () => {
 
     useEffect(() => {
         async function fetchOrderHistory() {
-          if (currentUser) {
-            try {
-              const orderHistory = await getOrderHistory(currentUser.uid);
-              setOrderHistory(orderHistory);
-            } catch (error) {
-              console.error('Error al obtener el historial de compras:', error);
+            if (currentUser) {
+                try {
+                    const orderHistory = await getOrderHistory(currentUser.uid);
+                    setOrderHistory(orderHistory);
+                } catch (error) {
+                    console.error('Error al obtener el historial de compras:', error);
+                }
             }
-          }
         }
         fetchOrderHistory();
-      }, [currentUser]);
+    }, [currentUser]);
 
     const displayName = currentUser.displayName;
     const email = currentUser.email;
 
     return (
-        <div className="flex flex-col items-center pt-10 pb-20 w-full bg-black/10">
+        <div className="flex flex-col items-center pt-10 pb-20 w-full bg-slate-100">
             <div className="w-2/3">
-                <div className="flex w-full items-center">
-                    <div className="flex flex-col w-5/6 h-40 justify-center pl-10">
-                        <p className="text-4xl font-bold">{displayName}</p>
-                        <p className="text-xl mt-3">{email}</p>
+                <div className="flex w-full items-center justify-between items-center">
+                    <div className="flex flex-col h-40 justify-center">
+                        <p className="text-2xl font-light">{displayName}</p>
+                        <p className="text-lg font-extralight">{email}</p>
                     </div>
-                    <div className="w-1/6 h-full flex items-center justify-center">
-                        <button onClick={() => handleLogOut()}className="h-10 w-28 bg-yellow-600 rounded-md text-white">Salir</button>
-                    </div>
+                    <button onClick={() => handleLogOut()} className="btn btn-accent">Logout</button>
                 </div>
-                <div className="flex flex-col items-center mt-5 w-full bg-white pb-20">
-                    <p className="text-2xl mt-10 mb-10 font-bold">Historial de compras</p>
-                    {orderHistory?.map((order, index) => {
+                <div className="flex flex-col items-center">
+                    <p className="text-xl font-light">Historial de compras</p>
+                    {/* {orderHistory?.map((order, index) => {
                         return <ItemCompras key={index} order={order}/>
-                    })}
-                    
+                    })} */}
+
                 </div>
             </div>
         </div>

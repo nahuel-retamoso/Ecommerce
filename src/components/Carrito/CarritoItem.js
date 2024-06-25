@@ -1,48 +1,55 @@
-import { getProductById } from '../../firebase/firestore';
 import { useEffect, useState } from 'react';
+import { getSpecificProduct } from '../../sanity';
 
-const CarritoItem = ({item, remove}) => {
+const CarritoItem = ({ item, remove }) => {
 
-    const {productId, quantity} = item;
-    const [product, setProduct] = useState();
+  const { productId, quantity, size } = item;
+  const [product, setProduct] = useState();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const product = await getProductById(productId);
-            setProduct(product);
-        };
-        fetchData();
-    }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const product = await getSpecificProduct(productId);
+      setProduct(product[0]);
+      console.log('Este es un item del carrito:', product)
+    };
+    fetchData();
+  }, []);
 
-    if (!product) {
-      return null;
-    }
+  if (!product) {
+    return null;
+  }
 
-    const TotalPrice = product?.price * quantity;
+  return (
+    <tbody>
+      <tr>
+        <th>
+          <label>
+            <button className='btn btn-circle' onClick={() => remove(productId)}>X</button>
+          </label>
+        </th>
+        <td>
+          <div className="flex items-center gap-3">
+            <div className="avatar">
+              <div className="mask mask-squircle h-12 w-12">
+                <img
+                  src={product.images[0]}
+                  alt={product.title} />
+              </div>
+            </div>
+            <div>
+              <div className="font-normal">{product.title}</div>
+              <div className="text-sm font-light opacity-50">Talle: {size}</div>
+            </div>
+          </div>
+        </td>
+        <td className='text-sm opacity-50 font-light'>x {quantity}</td>
+        <th>
+          <div className="text-sm font-light opacity-50">$ {product.price * quantity}</div>
+        </th>
+      </tr>
+    </tbody>
+  );
+};
 
-    return (
-      <div className="flex w-5/6 bg-white/90 mb-3 shadow">
-        <div className="flex items-center justify-center h-28 m-2 w-40 overflow-hidden">
-          <img
-            src={product?.images[0]}
-            className="m-2"
-          />
-        </div>
-        <p className="flex items-center pl-10 text-xl w-1/2 h-full bg-white/90">
-          {product?.name}
-        </p>
-        <p className="flex items-center justify-center bg-white/90 w-1/6 text-xl">
-          x {quantity}
-        </p>
-        <p className="flex items-center justify-center bg-white/90 w-1/6 text-xl font-bold">
-          ${TotalPrice}
-        </p>
-        <div className="flex items-center justify-center w-1/6 h-full bg-white/90">
-          <button className='text-3xl font-bold text-red-700' onClick={() => remove(productId)}>X</button>
-        </div>
-      </div>
-    );
-  };
-  
 
 export default CarritoItem

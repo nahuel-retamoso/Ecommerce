@@ -1,25 +1,33 @@
-const ItemCompras = ({order}) => {
+const ItemCompras = ({ order }) => {
 
     console.log(order)
 
     const timestamp = order.createdAt
-      
-      const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
-      
+
+    const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
+
     return (
-        <div className="flex flex-col justify-center bg-white w-3/4 border-b-2 border-black p-8">
-            {order.cartItems.map((item, index) => {
-                return (<div className="flex w-full text-xl mb-5">
-                    <p key={index} className="w-3/6">{item.productId}</p>
-                    <p key={index} className="w-1/6">{item.quantity}</p>
-                    <p key={index} className="w-1/6">{item.size}</p>
-                    <p key={index} className="w-1/6">$ {item.price}</p>
-                </div>)
-            })}
-            <p className="font-semibold">Fecha: {date.toLocaleDateString()}</p>
-            <p className="font-semibold">Direccion: {order.address}</p>
-            <p className="text-2xl font-bold">Total: $ {order.totalPrice}</p>
-        </div>
+        <tr>
+            <td>
+                <div className="flex items-center gap-3">
+                    <div>
+                        <div className="font-bold">Hart Hagerty</div>
+                        <div className="text-sm opacity-50">{order.productId}</div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <p>{date.toLocaleDateString()}</p>
+                <br />
+                <span className="badge badge-ghost badge-sm">x {order.address}</span>
+            </td>
+            <td>{order.quantity}</td>
+            <br />
+            <td>{order.size}</td>
+            <th>
+                <button className="btn btn-ghost btn-xs">{order.totalPrice}</button>
+            </th>
+        </tr>
     )
 }
 
