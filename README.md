@@ -1,4 +1,4 @@
-## Ecommerce completo hecho con React y CMS en Sanity
+## e-commerce completo hecho con React y CMS en Sanity
 
  - Posibilidad para configurar la home page desde Sanity Studio.
  - Catalogo, con filtros anidados. Configurables desde Sanity Studio.
