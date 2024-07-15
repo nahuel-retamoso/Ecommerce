@@ -90,7 +90,7 @@ const CatalogContainer = () => {
       </div>
       <div className="w-full mt-4">
         <h2 className="ml-6 mt-2 text-2xl">Lo mas visto</h2>
-        <div className="grid grid-cols-3 gap-6 p-6 mb-20 w-full">
+        <div className="grid grid-cols-3 gap-4 p-8 mb-20 w-full">
         {products?.map((product) => (
             <CatalogItem key={product._id} product={product} />
           ))}

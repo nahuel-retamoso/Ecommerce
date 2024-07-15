@@ -2,10 +2,18 @@ import { Link } from "react-router-dom";
 import SizeSelector from "./SizeSelector";
 import QuantitySelector from "./QuantitySelector";
 
-const Info = ({product, setSize, size, quantity, setQuantity, stock, AddItem, added}) => {
+const Info = ({ product, setSize, size, quantity, setQuantity, stock, AddItem, added }) => {
     return (
         <div className="flex flex-col justify-between h-full w-2/5 py-20 px-20">
+
             <div className="w-full">
+                <div className="breadcrumbs text-sm">
+                    <ul className="text-gray-600">
+                        <li><a>Catalogo</a></li>
+                        <li><a>Partes de abajo</a></li>
+                        <li>Bermudas</li>
+                    </ul>
+                </div>
                 <h2 className="text-4xl font-light text-gray-800">{product[0]?.title}</h2>
                 <p className="mt-5 font-extralight text-gray-700">{product[0]?.description}</p>
             </div>

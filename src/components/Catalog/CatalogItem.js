@@ -1,25 +1,29 @@
 import { Link } from "react-router-dom"
 
-const CatalogItem = ({product}) => {
+const CatalogItem = ({ product }) => {
 
 
-    return (
-        <Link to={`/detail/${product._id}`} className="card w-full bg-base-100 rounded-sm hover:shadow-xl shadow-sm">
-        <figure><img src={product.images[0]} alt="Shoes" /></figure>
-        <div className="card-body">
-          <div className="h-16 flex justify-between items-start">
-            <h2 className="text-lg font-light mr-4">
-              {product.title}
-            </h2>
-              <div className="badge badge-secondary mt-1">NEW</div>
-          </div>
-          <div className="card-actions items-center justify-end">
-          <div className="badge badge-outline mr-1">10% descuento</div>
-            <div className="font-light text-xl">${product.price}</div> 
-          </div>
+  return (
+
+    <Link to={`/detail/${product._id}`} className="rounded-sm mx-5 card w-full h-96 bg-base-100 hover:shadow-sm">
+      <figure><img src={product?.images[0]} alt={product?.title} /></figure>
+      <div className="pt-8">
+        <div className="badge badge-secondary mb-1">NEW</div>
+        <div className="flex justify-between items-start ">
+          <h2 className="text-lg font-medium mr-4 text-gray-800">
+            {product?.title}
+          </h2>
+
         </div>
-      </Link>
-    )
+        <p className="line-clamp-1 text-gray-500 font-light text-md">{product?.description}</p>
+        <div className="card-actions justify-start">
+          <p className="text-md font-light text-gray-500 mt-4 mr-1 line-through">$ {product?.price}</p>
+          <p className="text-lg font-medium text-gray-800 mt-4 mr-4 ">$ {product?.price}</p>
+        </div>
+        <div className="text-green-700 font-semibold ">20% de descuento</div>
+      </div>
+    </Link>
+  )
 }
 
 export default CatalogItem
