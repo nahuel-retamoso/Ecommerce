@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 const Item = ({ title, description, image, price, id }) => {
     return (
-        <Link to={`/detail/${id}`} className="rounded-sm mx-5 card w-80 h-96 bg-base-100 shadow-sm hover:shadow-md">
+        <Link to={`/detail/${id}`} className="rounded-sm mx-5 card w-80 h-96 bg-base-100 hover:shadow-sm">
             <figure><img src={image} alt={title} /></figure>
             <div className="pt-8">
             <div className="badge badge-secondary mb-1">NEW</div>
