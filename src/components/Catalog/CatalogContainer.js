@@ -72,7 +72,7 @@ const CatalogContainer = () => {
     }
 
   return (
-    <div className="flex w-full min-h-screen px-20 bg-slate-100">
+    <div className="flex w-full min-h-screen px-20 bg-base-100">
       <div className="w-1/5 h-full sticky top-10 my-20 shadow-sm bg-base-100 shadow-md rounded-sm overflow-hidden">
           <div className='flex justify-around items-center t h-20 hover:bg-accent' onClick={() => setClickAll(true)}>
             <p className='font-light'>Todo</p>
