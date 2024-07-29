@@ -10,8 +10,7 @@ const Info = ({ product, setSize, size, quantity, setQuantity, stock, AddItem, a
                 <div className="breadcrumbs text-sm">
                     <ul className="text-gray-600">
                         <li><a>Catalogo</a></li>
-                        <li><a>Partes de abajo</a></li>
-                        <li>Bermudas</li>
+                        <li><a>{product[0]?.subcategory.title}</a></li>
                     </ul>
                 </div>
                 <h2 className="text-4xl font-light text-gray-800">{product[0]?.title}</h2>
